@@ -1,0 +1,10 @@
+displayName: AuthCrunch
+type: middleware
+iconPath: .assets/icon.png
+
+import: github.com/authcrunch/authcrunch-traefik-plugin
+
+summary: A middleware plugin that provides Authentication, Authorization, and Accounting (AAA) capabilities
+
+testData:
+  enabled: true

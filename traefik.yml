@@ -1,0 +1,19 @@
+# traefik.yml
+log:
+  level: DEBUG
+
+entryPoints:
+  web:
+    address: ":8080"
+  websecure:
+    address: ":8443"
+
+experimental:
+  localPlugins:
+    authcrunch:
+      moduleName: github.com/authcrunch/authcrunch-traefik-plugin
+
+providers:
+  file:
+    filename: "./dynamic-config.yml"
+    watch: true

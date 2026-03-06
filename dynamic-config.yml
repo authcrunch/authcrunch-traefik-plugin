@@ -1,0 +1,35 @@
+# dynamic-config.yml
+http:
+  routers:
+    # Router for HTTP (Port 8080)
+    gateway-http:
+      rule: "Host(`auth.myfiosgateway.com`) || Host(`localhost`)"
+      entryPoints:
+        - web
+      service: echo-service
+      middlewares:
+        - authcrunch-authenticate
+
+    # Router for HTTPS (Port 8443)
+    gateway-https:
+      rule: "Host(`auth.myfiosgateway.com`) || Host(`localhost`)"
+      entryPoints:
+        - websecure
+      service: echo-service
+      middlewares:
+        - authcrunch-authenticate
+      tls: {}
+
+  middlewares:
+      authcrunch-authenticate:
+        plugin:
+          authcrunch:
+            #mode: authenticate
+            mode: authorize
+            enabled: true
+
+  services:
+    echo-service:
+      loadBalancer:
+        servers:
+          - url: "https://httpbin.org/get"
